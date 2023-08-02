@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <label for="length">Enter the Distance:</label>
+    <input type="number" id="length" min="1" step="1">
+    <br>
+    <br>
+    <button class="btn" name="Forward" value="Forward" onclick="Forward();storeValue(this);printArrayElements();storeInputs(this);printArrayElements2();">Forward</button>
+    <button class="btn" name="Backward" value="Backward" onclick="Backward();storeValue(this);printArrayElements();storeInputs(this);printArrayElements2();">Backward</button>
+    <button class="btn" name="Left" value="Left" onclick="Left();storeValue(this);printArrayElements();storeInputs(this);printArrayElements2();">Left</button>
+    <button class="btn" name="Right" value="Right" onclick="Right();storeValue(this);printArrayElements();storeInputs(this);printArrayElements2();">Right</button>
+
+    <canvas width="1600" height="1000" id="myCanvas" >
+    </canvas>
+
+    <script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+const lengthInput = document.getElementById('length');
+
+var posX = 800;
+var posY = 500;
+
+
+function Left() {
+
+    const length = Number(lengthInput.value);
+
+ctx.beginPath();
+ctx.moveTo(posX,posY);
+ctx.lineTo(posX-length,posY);
+ctx.lineTo(posX-length+25,posY-25);
+ctx.arcTo(posX-length,posY,posX-length+25,posY+25,35);
+ctx.lineTo(posX-length,posY);
+ctx.stroke();
+ctx.fill();
+ctx.closePath();
+posX = posX -length;
+  
+}
+
+function Right() {
+
+  const length = Number(lengthInput.value);
+
+    ctx.beginPath();
+    ctx.moveTo(posX,posY);
+    ctx.lineTo(posX+length,posY);
+    ctx.lineTo(posX+length-25,posY-25);
+    ctx.arcTo(posX+length,posY,posX+length-25,posY+25,35);
+    ctx.lineTo(posX+length,posY);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+
+    posX = posX +length;
+  
+  }
+
+
+  function Forward() {
+
+    const length = Number(lengthInput.value);
+
+    ctx.beginPath();
+    ctx.moveTo(posX,posY);
+    ctx.lineTo(posX,posY-length);
+    ctx.lineTo(posX+25,posY-length+25);
+    ctx.arcTo(posX,posY-length,posX-25,posY-length+25,35); 
+    ctx.lineTo(posX,posY-length);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+
+    posY = posY -length;
+
+    }
+
+
+    function Backward() {
+
+        const length = Number(lengthInput.value);
+
+      ctx.beginPath();
+      ctx.moveTo(posX,posY);
+      ctx.lineTo(posX,posY+length);
+      ctx.lineTo(posX-25,posY+length-25);
+      ctx.arcTo(posX,posY+length,posX+25,posY+length-25,35); 
+      ctx.lineTo(posX,posY+length);
+      ctx.stroke();
+      ctx.fill();
+      ctx.closePath();
+
+      posY = posY +length;
+
+      
+      }
+
+
+var array = [];
+
+function storeValue(button) {
+  array.push(button.value);
+  console.log(array);
+
+}
+
+function printArrayElements() {
+  var output = "";
+  for (var i = 0; i < array.length; i++) {
+      output += "<li>" + array[i] + "</li>";
+  }
+  var textarea = document.getElementById("list");
+  textarea.value = array.join("\n");
+
+  }
+
+
+const textarea = document.getElementById('length');
+const Array2 = [];
+
+function storeInputs() {
+
+  const inputValue = textarea.value;
+  
+  Array2.push(inputValue);
+  textarea.value = '';
+  console.log(Array2);
+
+}
+
+function printArrayElements2() {
+  var output = "";
+  for (var i = 0; i < Array2.length; i++) {
+      output += "<li>" + Array2[i] + "</li>";
+  }
+  var textarea = document.getElementById("list2");
+  textarea.value = Array2.join("\n");
+
+  }
+
+
+    </script>
+
+<ul id="output"></ul>
+<form action="t2.php" method="post"> 
+  <label>Direction</label>
+  <br>
+  <textarea id="list" name="list" rows="4" cols="20" readonly></textarea><br>
+  <label>Distance</label>
+  <br>
+  <textarea id="list2" name="list2" rows="4" cols="20" readonly></textarea><br>
+<input type="submit" value="Submit">
+</form>
+
+</body>
+
+</html>
